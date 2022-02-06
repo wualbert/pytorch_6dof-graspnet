@@ -70,6 +70,12 @@ python -m demo.main --grasp_sampler_folder checkpoints/vae_pretrained/ --refinem
 
 Download the meshes with ids written in [shapenet_ids.txt](shapenet_ids.txt) from <https://www.shapenet.org/.> Some of the objects are in `ShapenetCore` and `ShapenetSem`.
 
+### Gather the Shapenet Model files
+```
+python aggregate_shapenet_models.py PATH_TO_FOLDER_ROOT
+``` 
+to gather the files in `shapenet_ids.txt`
+
 ### Prepare ShapeNet Models
 
 1. Clone and build: <https://github.com/hjwdzh/Manifold>
