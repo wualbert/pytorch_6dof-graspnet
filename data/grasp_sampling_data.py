@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 import os
 import torch
 from data.base_dataset import BaseDataset, NoPositiveGraspsException
@@ -20,8 +21,12 @@ class GraspSamplingData(BaseDataset):
 
     def __getitem__(self, index):
         path = self.paths[index]
-        pos_grasps, pos_qualities, _, _, _, cad_path, cad_scale = self.read_grasp_file(
-            path)
+        try:
+            pos_grasps, pos_qualities, _, _, _, cad_path, cad_scale = self.read_grasp_file(
+                path)
+        except ValueError as e:
+            print(e)
+            return self.__getitem__(np.random.randint(0, self.size))
         meta = {}
         try:
             all_clusters = self.sample_grasp_indexes(
